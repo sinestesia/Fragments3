@@ -20,10 +20,10 @@ import modelo.Cliente;
  * Created by cice on 23/3/17.
  */
 
-public class ClienteAdaptador extends ArrayAdapter<Cliente> {
+public class ClienteAdaptador extends ArrayAdapter<Cliente> implements View.OnClickListener {
     private Context contexto;
     private List<Cliente> data;
-
+    private View.OnClickListener listener;
 
     public ClienteAdaptador(@NonNull Context context, @LayoutRes int resource, @NonNull List<Cliente> objects) {
         super(context, resource, objects);
@@ -36,12 +36,25 @@ public class ClienteAdaptador extends ArrayAdapter<Cliente> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater intflater = LayoutInflater.from(contexto);
         View row = intflater.inflate(R.layout.cliente,null);
+        row.setOnClickListener(this);
         ImageView clienteSexo=(ImageView) row.findViewById(R.id.imageViewSexo);
         TextView  clienteNombre =(TextView) row.findViewById(R.id.nombre);
         TextView  clienteTelefono =(TextView) row.findViewById(R.id.telefono);
         clienteSexo.setImageResource(data.get(position).getSexo());
         clienteNombre.setText(data.get(position).getNombre());
         clienteTelefono.setText(Integer.toString(data.get(position).getTelefono()));
+
         return row;
+    }
+
+    public void setListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(listener!=null) {
+            listener.onClick(v);
+        }
     }
 }

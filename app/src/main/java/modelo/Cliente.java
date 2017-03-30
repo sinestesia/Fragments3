@@ -1,5 +1,7 @@
 package modelo;
 
+import android.os.Bundle;
+
 import java.io.Serializable;
 
 /**
@@ -15,6 +17,13 @@ public class Cliente implements Serializable{
         this.nombre = nombre;
         this.sexo = sexo;
         this.telefono = telefono;
+    }
+
+    public Cliente(Bundle b){
+       nombre =  b.getString("nombre");
+        sexo = b.getInt("sexo");
+        telefono = b.getInt("telefono");
+
     }
 
     public String getNombre() {
@@ -39,5 +48,14 @@ public class Cliente implements Serializable{
 
     public void setTelefono(int telefono) {
         this.telefono = telefono;
+    }
+
+    public Bundle getBundle(){
+        Bundle b = new Bundle();
+        b.putString("nombre", nombre);
+        b.putInt("sexo", sexo);
+        b.putInt("telefono", telefono);
+
+        return b;
     }
 }

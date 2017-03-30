@@ -12,6 +12,7 @@ import modelo.Cliente;
 
 public class MainActivity extends AppCompatActivity {
     private boolean vertical;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
     public void verDetalle(Cliente c){
         if (vertical){
             Intent i = new Intent(getApplicationContext(), DetalleFragmento.class);
-            i.putExtra("cliente",c);
+            i.putExtras(c.getBundle());
+
             startActivity(i);
         }else{
 

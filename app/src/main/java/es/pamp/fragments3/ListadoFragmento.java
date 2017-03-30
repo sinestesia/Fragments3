@@ -38,18 +38,24 @@ public class ListadoFragmento extends Fragment {
             ClienteAdaptador adaptador = new ClienteAdaptador(container.getContext(), R.layout.cliente,data);
             ListView clienteLV = (ListView) view.findViewById(R.id.clientes);
             clienteLV.setAdapter(adaptador);
-            clienteLV.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            adaptador.setListener(new View.OnClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    Cliente c  = data.get(position);
+                public void onClick(View v) {
+                    Cliente c  = data.get(0);
                     activity.verDetalle(c);
-
-                    Toast.makeText(view.getContext(), "Has seleccionado: " + position + " Nombre: " + data.get(position).getNombre(), Toast.LENGTH_SHORT).show();
-
 
                 }
             });
+            clienteLV.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cliente c  = data.get(position);
+                activity.verDetalle(c);
+
+            }
+            });
+
 
         return view;
     }

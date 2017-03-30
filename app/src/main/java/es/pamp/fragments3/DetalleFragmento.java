@@ -15,22 +15,28 @@ import modelo.Cliente;
  */
 
 public class DetalleFragmento extends Fragment {
+    Cliente cliente;
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        Bundle bundle = get
-        Cliente cliente = (Cliente)
+
+
+
         TextView clienteNombre = (TextView)container.findViewById(R.id.nombre);
-        clienteNombre.setText(savedInstanceState.);
+        clienteNombre.setText(cliente.getNombre());
+        TextView clienteSexo = (TextView)container.findViewById(R.id.sexo);
+        clienteSexo.setText(cliente.getSexo());
+        TextView clienteTelefono = (TextView)container.findViewById(R.id.telefono);
+        clienteTelefono.setText(cliente.getTelefono());
 
 
-        /*
-        i.putExtra("Nombre",c.getNombre());
-        i.putExtra("Telefono",c.getTelefono());
-        i.putExtra("Sexo",c.getSexo());
 
-
-        */
         return inflater.inflate(R.layout.detallefragmento, container, false);
     }
 }
