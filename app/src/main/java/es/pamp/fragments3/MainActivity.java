@@ -12,6 +12,7 @@ import modelo.Cliente;
 
 public class MainActivity extends AppCompatActivity {
     private boolean vertical;
+    private DetalleFragmento detalleFragmento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,21 +22,25 @@ public class MainActivity extends AppCompatActivity {
 
 
         FragmentManager fragmentManager = getFragmentManager();
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         FrameLayout fl = (FrameLayout)findViewById(R.id.detalle);
 
         if (fl!=null) { //Comprueba si existe el framelayout, si existe la vista es horizontal
-            DetalleFragmento detalleFragmento = new DetalleFragmento();
+            detalleFragmento = new DetalleFragmento();
             transaction.add(R.id.detalle, detalleFragmento);
+            vertical=false;
+        }else{
             vertical=true;
         }
+
 
         ListadoFragmento listadoFragmento = new ListadoFragmento();
 
         listadoFragmento.setActivity(this); // Se pasa el puntero de MainActivity a listado fragmento
 
-        transaction.add(R.id.listado, listadoFragmento);
+        transaction.replace(R.id.listado, listadoFragmento);
 
         transaction.commit();
 
@@ -43,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void verDetalle(Cliente c){
         if (vertical){
-            Intent i = new Intent(getApplicationContext(), DetalleFragmento.class);
+            Intent i = new Intent(getApplicationContext(), Main2Activity.class);
             i.putExtras(c.getBundle());
 
             startActivity(i);
         }else{
-
+            detalleFragmento.escribeCliente(c);
         }
 
     }

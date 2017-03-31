@@ -16,6 +16,9 @@ import modelo.Cliente;
 
 public class DetalleFragmento extends Fragment {
     Cliente cliente;
+    TextView clienteNombre;
+    TextView clienteSexo;
+    TextView clienteTelefono;
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
@@ -26,17 +29,23 @@ public class DetalleFragmento extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
+        View v = inflater.inflate(R.layout.detallefragmento, container, false);
 
+        clienteNombre = (TextView)v.findViewById(R.id.nombre);
+        clienteSexo = (TextView)v.findViewById(R.id.sexo);
+        clienteTelefono = (TextView)v.findViewById(R.id.telefono);
+        if (cliente!=null){
+            clienteNombre.setText(cliente.getNombre());
+            clienteSexo.setText(cliente.getSexo());
+            clienteTelefono.setText(String.valueOf(cliente.getTelefono()));
+        }
 
-        TextView clienteNombre = (TextView)container.findViewById(R.id.nombre);
-        clienteNombre.setText(cliente.getNombre());
-        TextView clienteSexo = (TextView)container.findViewById(R.id.sexo);
-        clienteSexo.setText(cliente.getSexo());
-        TextView clienteTelefono = (TextView)container.findViewById(R.id.telefono);
-        clienteTelefono.setText(cliente.getTelefono());
-
-
-
-        return inflater.inflate(R.layout.detallefragmento, container, false);
+        return v;
     }
+    public void escribeCliente(Cliente cliente){
+        clienteNombre.setText(cliente.getNombre());
+        clienteSexo.setText(cliente.getSexo());
+        clienteTelefono.setText(String.valueOf(cliente.getTelefono()));
+    }
+
 }

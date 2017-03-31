@@ -24,10 +24,10 @@ public class Main2Activity extends AppCompatActivity {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        FrameLayout fl = (FrameLayout)findViewById(R.id.detalle);
+        //FrameLayout fl = (FrameLayout)findViewById(R.id.detalle);
 
         DetalleFragmento detalleFragmento = new DetalleFragmento();
-        transaction.add(R.id.detalle, detalleFragmento);
+        transaction.replace(R.id.detalle, detalleFragmento);
 
         detalleFragmento.setCliente(c);
 
