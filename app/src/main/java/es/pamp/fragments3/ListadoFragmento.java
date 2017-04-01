@@ -17,13 +17,18 @@ import java.util.List;
 import adaptadores.ClienteAdaptador;
 import modelo.Cliente;
 
+import static es.pamp.fragments3.R.id.parent;
+
 
 /**
  * Created by cice on 29/3/17.
  */
 
-public class ListadoFragmento extends Fragment {
+public class ListadoFragmento extends Fragment implements AdapterView.OnItemClickListener{
     MainActivity activity;
+    int position;
+    List<Cliente> data;
+
 
     public void setActivity(MainActivity activity) {
         this.activity = activity;
@@ -34,20 +39,23 @@ public class ListadoFragmento extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, Bundle savedInstanceState) {
             View view;
             view = inflater.inflate(R.layout.listadofragmento, container, false);
-            final List<Cliente> data = getData();
-            ClienteAdaptador adaptador = new ClienteAdaptador(container.getContext(), R.layout.cliente,data);
+            data = getData();
+            final ClienteAdaptador adaptador = new ClienteAdaptador(container.getContext(), R.layout.cliente,data);
             ListView clienteLV = (ListView) view.findViewById(R.id.clientes);
             clienteLV.setAdapter(adaptador);
+            clienteLV.setOnItemClickListener(this);
+
 
             adaptador.setListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Cliente c  = data.get(0);
+                    Cliente c  = data.get(position);
                     activity.verDetalle(c);
 
                 }
             });
-            clienteLV.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+           clienteLV.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Cliente c  = data.get(position);
@@ -71,5 +79,12 @@ public class ListadoFragmento extends Fragment {
         list.add(new Cliente("Antonio",R.drawable.male,555789345));
         return list;
         };
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Cliente c  = data.get(position);
+        activity.verDetalle(c);
+    }
+
 
 }

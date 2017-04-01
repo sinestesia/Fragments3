@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import modelo.Cliente;
@@ -18,6 +19,7 @@ public class DetalleFragmento extends Fragment {
     Cliente cliente;
     TextView clienteNombre;
     TextView clienteSexo;
+    ImageView imageSexo;
     TextView clienteTelefono;
 
     public void setCliente(Cliente cliente) {
@@ -32,11 +34,11 @@ public class DetalleFragmento extends Fragment {
         View v = inflater.inflate(R.layout.detallefragmento, container, false);
 
         clienteNombre = (TextView)v.findViewById(R.id.nombre);
-        clienteSexo = (TextView)v.findViewById(R.id.sexo);
+        imageSexo = (ImageView)v.findViewById(R.id.imageSexo);
         clienteTelefono = (TextView)v.findViewById(R.id.telefono);
         if (cliente!=null){
             clienteNombre.setText(cliente.getNombre());
-            clienteSexo.setText(cliente.getSexo());
+            imageSexo.setImageResource(cliente.getSexo());
             clienteTelefono.setText(String.valueOf(cliente.getTelefono()));
         }
 
@@ -44,8 +46,8 @@ public class DetalleFragmento extends Fragment {
     }
     public void escribeCliente(Cliente cliente){
         clienteNombre.setText(cliente.getNombre());
-        clienteSexo.setText(cliente.getSexo());
         clienteTelefono.setText(String.valueOf(cliente.getTelefono()));
+        imageSexo.setImageResource(cliente.getSexo());
     }
 
 }

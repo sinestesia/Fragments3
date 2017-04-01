@@ -16,15 +16,12 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-
         Intent i = getIntent();
 
         Cliente c = new Cliente(i.getExtras());
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-        //FrameLayout fl = (FrameLayout)findViewById(R.id.detalle);
 
         DetalleFragmento detalleFragmento = new DetalleFragmento();
         transaction.replace(R.id.detalle, detalleFragmento);

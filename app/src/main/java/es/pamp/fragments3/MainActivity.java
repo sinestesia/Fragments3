@@ -13,47 +13,52 @@ import modelo.Cliente;
 public class MainActivity extends AppCompatActivity {
     private boolean vertical;
     private DetalleFragmento detalleFragmento;
+    private FragmentTransaction transaction;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fragmentManager = getFragmentManager();
+        transaction = fragmentManager.beginTransaction();
 
-
-        FragmentManager fragmentManager = getFragmentManager();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-        FrameLayout fl = (FrameLayout)findViewById(R.id.detalle);
+        FrameLayout fl = (FrameLayout)findViewById(R.id.detalle); //Para comprobar si existe
 
         if (fl!=null) { //Comprueba si existe el framelayout, si existe la vista es horizontal
             detalleFragmento = new DetalleFragmento();
-            transaction.add(R.id.detalle, detalleFragmento);
+            transaction.replace(R.id.detalle, detalleFragmento);
             vertical=false;
         }else{
             vertical=true;
         }
 
-
         ListadoFragmento listadoFragmento = new ListadoFragmento();
-
         listadoFragmento.setActivity(this); // Se pasa el puntero de MainActivity a listado fragmento
-
         transaction.replace(R.id.listado, listadoFragmento);
-
         transaction.commit();
+
+
 
     }
 
     public void verDetalle(Cliente c){
-        if (vertical){
+        if (vertical){ //llama a main activity 2
             Intent i = new Intent(getApplicationContext(), Main2Activity.class);
             i.putExtras(c.getBundle());
 
             startActivity(i);
-        }else{
-            detalleFragmento.escribeCliente(c);
+        }else{ // genera un nuevo fragment, lo carga de datos y lo reemplaza
+            fragmentManager = getFragmentManager();
+            transaction = fragmentManager.beginTransaction();
+            detalleFragmento = new DetalleFragmento();
+            transaction.replace(R.id.detalle, detalleFragmento);
+
+            detalleFragmento.setCliente(c);
+
+            transaction.commit();
+
         }
 
     }

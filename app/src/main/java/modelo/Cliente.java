@@ -20,7 +20,7 @@ public class Cliente implements Serializable{
     }
 
     public Cliente(Bundle b){
-       nombre =  b.getString("nombre");
+        nombre =  b.getString("nombre");
         sexo = b.getInt("sexo");
         telefono = b.getInt("telefono");
 
